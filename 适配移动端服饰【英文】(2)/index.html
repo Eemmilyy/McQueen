@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alexander McQueen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .logo {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        .search-icon {
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        .content {
+            position: relative;
+            margin: 20px auto;
+            max-width: 1200px;
+            display: flex;
+        }
+        
+        .designer-info {
+            width: 30%;
+            padding: 100px 20px;
+        }
+        
+        .designer-name {
+            font-size: 48px;
+            font-weight: bold;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        
+        .designer-title {
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+        
+        .image-container {
+            width: 70%;
+            position: relative;
+        }
+        
+        .feature-image {
+            width: 100%;
+            height: auto;
+            background-color: #000;
+            cursor: pointer;
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            width: 70px;
+            height: 70px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .play-icon {
+            border-style: solid;
+            border-width: 10px 0 10px 20px;
+            border-color: transparent transparent transparent #000;
+            margin-left: 5px;
+        }
+        
+        .caption {
+            max-width: 1200px;
+            margin: 10px auto 0;
+            font-size: 12px;
+            padding-left: 30%;
+        }
+        
+        /* Profile Page Styles */
+        .profile-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 40px auto;
+            background-color: #fff;
+            position: relative;
+        }
+        
+        .profile-image {
+            width: 50%;
+            position: relative;
+        }
+        
+        .profile-image img {
+            width: 100%;
+            display: block;
+        }
+        
+        .profile-image .pagination {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 2;
+        }
+        
+        .profile-image .pagination span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .profile-image .pagination span.active {
+            background-color: #fff;
+        }
+        
+        .profile-info {
+            width: 50%;
+            padding: 40px;
+        }
+        
+        .pro-profile {
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        
+        .profile-name {
+            font-size: 40px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .profile-title {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .achievements {
+            margin-bottom: 30px;
+        }
+        
+        .achievement {
+            display: flex;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .achievement i {
+            margin-right: 10px;
+            color: #333;
+        }
+        
+        .bio-paragraph {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .social-icons {
+            position: static;
+            display: flex;
+            flex-direction: row;
+            /* justify-content: center;      */
+            margin-top: 30px;
+        }
+        
+        .social-icons a {
+            color: #000;
+            margin: 0 15px;
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            color: #555;
+        }
+        
+        .pagination {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .pagination span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        .pagination span.active {
+            background-color: #999;
+        }
+        
+        /* Slideshow Styles */
+        .profile-slideshow {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .slide.active {
+            display: block;
+        }
+        
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* 轮播图箭头样式 */
+        .slideshow-arrows {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 5;
+        }
+        
+        .arrow {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .arrow:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .arrow i {
+            color: #000;
+            font-size: 16px;
+        }
+        
+        /* Shows Section 轮播图箭头特殊样式 */
+        .shows-container .feature-show .slideshow-arrows {
+            padding: 0 5px;
+            width: 100%;
+        }
+        
+        .shows-container .feature-show .left-arrow {
+            margin-left: -10px;
+        }
+        
+        .shows-container .feature-show .right-arrow {
+            margin-right: -10px;
+        }
+        
+        /* Shows Section Styles */
+        .shows-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 40px auto;
+            background-color: #fff;
+        }
+        
+        .shows-listing {
+            width: 50%;
+            padding: 40px;
+        }
+        
+        .shows-title {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+        
+        .show-item {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .show-thumbnail {
+            width: 30%;
+            margin-right: 20px;
+        }
+        
+        .show-thumbnail img {
+            width: 100%;
+            display: block;
+        }
+        
+        .show-info {
+            width: 70%;
+        }
+        
+        .show-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .show-subtitle {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .show-description {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        
+        .show-date {
+            font-size: 12px;
+            color: #777;
+        }
+        
+        .explore-more {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        
+        .explore-more i {
+            margin-left: 5px;
+        }
+        
+        .feature-show {
+            width: 50%;
+            position: relative;
+        }
+        
+        .feature-show img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        
+        .feature-show .profile-slideshow {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .feature-show .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .feature-show .slide.active {
+            display: block;
+        }
+        
+        .feature-show .pagination {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .feature-show .pagination span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .feature-show .pagination span.active {
+            background-color: #fff;
+        }
+        
+        .footer-pagination {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .footer-pagination span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        .footer-pagination span.active {
+            background-color: #999;
+        }
+        
+        /* Collections Section Styles */
+        .collections-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: #fff;
+        }
+        
+        .collections-title {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+        
+        .collection-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .collection-tab {
+            font-size: 14px;
+            font-weight: bold;
+            padding: 10px 20px;
+            margin-right: 20px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .collection-tab.active {
+            color: #000;
+        }
+        
+        .collection-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #000;
+        }
+        
+        .collection-items {
+            display: flex;
+            flex-wrap: wrap;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .collection-group {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            visibility: hidden;
+        }
+        
+        .collection-group.active {
+            opacity: 1;
+            position: relative;
+            visibility: visible;
+        }
+        
+        .collection-item {
+            width: 25%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .collection-item img {
+            width: 100%;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .collection-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            color: white;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .collection-item:hover .collection-overlay {
+            opacity: 1;
+        }
+        
+        .collection-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .collection-item:hover::before {
+            opacity: 1;
+        }
+        
+        .collection-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .collection-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .collection-year {
+            font-size: 14px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .collections-pagination {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .collections-pagination span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        .collections-pagination span.active {
+            background-color: #999;
+        }
+        
+        /* Footer Styles */
+        .footer {
+            width: 100%;
+            margin: 40px 0 0;
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+            background-color: #f9f9f9;
+        }
+        
+        .footer-container {
+            /* max-width: 1200px; */
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .footer-website {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-bottom: 5px;
+        }
+        
+        .footer-website a {
+            text-decoration: none;
+            color: #000;
+            font-size: 14px;
+            margin-right: 15px;
+        }
+        
+        .footer-email {
+            font-size: 18px;
+        }
+        
+        .footer-address {
+            text-align: right;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-top: 30px;
+        }
+        
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+        }
+        
+        .footer-credit {
+            font-size: 12px;
+            color: #555;
+        }
+        
+        .footer-social {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .footer-social a {
+            color: #000;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+        
+        /* 响应式设计 */
+        @media screen and (max-width: 1200px) {
+            .content, .profile-container, .shows-container, .collections-container {
+                max-width: 90%;
+            }
+            
+            .footer-container {
+                padding: 0 5%;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            /* 导航栏调整 */
+            .navbar {
+                padding: 15px;
+            }
+            
+            /* 主内容区调整 */
+            .content {
+                flex-direction: column;
+            }
+            
+            .designer-info {
+                width: 100%;
+                padding: 30px 0;
+                text-align: center;
+            }
+            
+            .image-container {
+                width: 100%;
+            }
+            
+            .caption {
+                padding-left: 0;
+                text-align: center;
+            }
+            
+            /* 个人资料部分调整 */
+            .profile-container {
+                flex-direction: column;
+            }
+            
+            .profile-image, .profile-info {
+                width: 100%;
+            }
+            
+            /* 轮播图箭头响应式调整 */
+            .slideshow-arrows .arrow {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .slideshow-arrows .arrow i {
+                font-size: 14px;
+            }
+            
+            /* Shows部分调整 */
+            .shows-container {
+                flex-direction: column;
+            }
+            
+            .shows-listing, .feature-show {
+                width: 100%;
+            }
+            
+            .feature-show {
+                height: 300px;
+            }
+            
+            /* Collections部分调整 */
+            .collection-items {
+                flex-wrap: wrap;
+            }
+            
+            .collection-item {
+                width: 50%;
+            }
+            
+            /* 底部栏调整 */
+            .footer-top, .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .footer-logo, .footer-website {
+                margin-bottom: 15px;
+            }
+            
+            .footer-credit {
+                margin-bottom: 15px;
+            }
+            
+            .footer-social a {
+                margin: 0 10px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .designer-name {
+                font-size: 36px;
+            }
+            
+            .profile-name {
+                font-size: 32px;
+            }
+            
+            .shows-title, .collections-title {
+                font-size: 32px;
+            }
+            
+            /* 轮播图箭头小屏幕调整 */
+            .slideshow-arrows .arrow {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .slideshow-arrows .arrow i {
+                font-size: 12px;
+            }
+            
+            .collection-item {
+                width: 100%;
+            }
+            
+            .show-item {
+                flex-direction: column;
+            }
+            
+            .show-thumbnail, .show-info {
+                width: 100%;
+            }
+            
+            .show-thumbnail {
+                margin-bottom: 15px;
+            }
+            
+            .collection-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .collection-tab {
+                margin-bottom: 10px;
+            }
+        }
+        
+        /* 视频弹窗样式 */
+        .video-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+        
+        .modal-content {
+            position: relative;
+            margin: 5% auto;
+            width: 80%;
+            max-width: 900px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #f1f1f1;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="menu-icon">&#9776;</div>
+        <div class="logo"><img src="./images/logo.png" alt="MCQUEEN Logo" style="height: 30px;"></div>
+        <div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+    </nav>
+    
+    <div class="content">
+        <div class="designer-info">
+            <h1 class="designer-name">Alexander<br>McQueen</h1>
+            <p class="designer-title">BRITISH DESIGNER</p>
+        </div>
+        
+        <div class="image-container">
+            <img src="./images/banner.png" alt="McQueen skull made of flowers" class="feature-image" id="bannerImage" onclick="toggleVideo()">
+        </div>
+    </div>
+    
+    <!-- <p class="caption">Documentary : McQueen (2018) Through interviews and archival images, McQueen's career and personal life are presented.</p> -->
+    
+    <!-- Profile Section -->
+    <section class="profile-container">
+        <div class="profile-image">
+            <div class="profile-slideshow">
+                <div class="slide active">
+                    <img src="./images/l1.png" alt="Alexander McQueen Portrait 1">
+                </div>
+                <div class="slide">
+                    <img src="./images/l2.png" alt="Alexander McQueen Portrait 2">
+                </div>
+                <div class="slide">
+                    <img src="./images/l3.png" alt="Alexander McQueen Portrait 3">
+                </div>
+                <div class="slide">
+                    <img src="./images/l4.png" alt="Alexander McQueen Portrait 4">
+                </div>
+            </div>
+            <div class="slideshow-arrows">
+                <div class="arrow left-arrow" onclick="plusSlides1(-1)"><i class="fa-solid fa-chevron-left"></i></div>
+                <div class="arrow right-arrow" onclick="plusSlides1(1)"><i class="fa-solid fa-chevron-right"></i></div>
+            </div>
+            <div class="pagination">
+                <span class="active" onclick="currentSlide(1)"></span>
+                <span onclick="currentSlide(2)"></span>
+                <span onclick="currentSlide(3)"></span>
+                <span onclick="currentSlide(4)"></span>
+            </div>
+        </div>
+        
+        <div class="profile-info">
+            <p class="pro-profile">PROPROFILE</p>
+            <h2 class="profile-name">Alexander McQueen</h2>
+            <p class="profile-title">British fashion designer and couturier</p>
+            
+            <div class="achievements">
+                <div class="achievement">
+                    <i class="fa-solid fa-star"></i>
+                    <p>The youngest designers to achieve the title "British Designer of the Year"</p>
+                </div>
+                <div class="achievement">
+                    <i class="fa-solid fa-star"></i>
+                    <p>Appointed A CBE</p>
+                </div>
+                <div class="achievement">
+                    <i class="fa-solid fa-star"></i>
+                    <p>Named International Designer</p>
+                </div>
+            </div>
+            
+            <p class="bio-paragraph">Alexander McQueen was born on March 17, 1969, in Lewisham, East London, England. He was the youngest of six children in a family where his father worked as a taxi driver and his mother was a social science teacher. From a young age, McQueen showed a keen interest in fashion design, often creating clothes for his three sisters.</p>
+            
+            <p class="bio-paragraph">At 16, McQueen left school and pursued an apprenticeship at Anderson & Sheppard, a renowned tailor shop on Savile Row in London. He later worked at Gieves & Hawkes and Angels & Bermans, a theatrical costume designer, honing his skills in tailoring and design.</p>
+            
+            <p class="bio-paragraph">McQueen's career took off after he earned a master's degree in fashion design from Central Saint Martins College in 1992. His graduation collection was bought in its entirety by fashion editor Isabella Blow, marking the beginning of his rise to prominence. In 1996, McQueen was appointed as the chief designer for Givenchy, a prestigious French fashion house. However, due to disagreements with the brand's style, he left in 2001.</p>
+            
+            <p class="bio-paragraph">In 1992, McQueen also founded his own label, Alexander McQueen, which quickly gained attention for its bold and innovative designs. His brand grew even further when, in 2000, Gucci Group acquired a majority stake in the company, allowing McQueen to continue as creative director.</p>
+            
+            <p class="bio-paragraph">McQueen's designs are renowned for their dramatic, rebellious nature, often telling a story and incorporating elements of history, nature, and technology. His work was deeply influenced by British history, Gothic culture, natural ecology, and science fiction films. As McQueen once said, "Fashion is a tool to escape reality and a way to express oneself."</p>
+            
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Shows Section -->
+    <section class="shows-container">
+        <div class="shows-listing">
+            <h2 class="shows-title">Shows</h2>
+            
+            <div class="show-item" onclick="window.open('https://www.youtube.com/watch?v=Kvpx5hX9_EM', '_blank')" style="cursor: pointer;">
+                <div class="show-thumbnail">
+                    <img src="./images/1.png" alt="The Golden Shower">
+                </div>
+                <div class="show-info">
+                    <h3 class="show-title">ALEXANDER MCQUEEN Spring 1998</h3>
+                    <h4 class="show-subtitle">The Golden Shower</h4>
+                    <p class="show-description">Models walked down a runway made of water-filled Lucite tanks wearing tight snakeskin dresses and tailored taffeta suits.</p>
+                    <p class="show-date">Nov 15, 2021</p>
+                </div>
+            </div>
+            
+            <div class="show-item" onclick="window.open('https://www.youtube.com/watch?v=tKP6OWTTKik', '_blank')" style="cursor: pointer;">
+                <div class="show-thumbnail">
+                    <img src="./images/2.png" alt="No.13">
+                </div>
+                <div class="show-info">
+                    <h3 class="show-title">ALEXANDER MCQUEEN Spring 1999</h3>
+                    <h4 class="show-subtitle">No.13</h4>
+                    <p class="show-description">No. 13 Finale is a performance artwork by fashion designer Alexander McQueen, presented at the end of the Spring/Summer 1999 show.</p>
+                    <p class="show-date">Mar 1, 2020</p>
+                </div>
+            </div>
+            
+            <div class="show-item" onclick="window.open('https://www.youtube.com/watch?v=0ieWEdEb8-s', '_blank')" style="cursor: pointer;">
+                <div class="show-thumbnail">
+                    <img src="./images/3.png" alt="Eye">
+                </div>
+                <div class="show-info">
+                    <h3 class="show-title">ALEXANDER MCQUEEN Spring 2000</h3>
+                    <h4 class="show-subtitle">Eye</h4>
+                    <p class="show-description">Eye was shown in New York, on a pier on the West side, and, once again, the models sloshed through water.</p>
+                    <p class="show-date">Aug 6, 2014</p>
+                </div>
+            </div>
+            
+            <div class="explore-more">
+                EXPLORE MORE <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        </div>
+        
+        <div class="feature-show" >
+            <div class="profile-slideshow">
+                <div class="slide active">
+                    <img src="./images/n1.png" alt="McQueen Feature Show 1">
+                </div>
+                <div class="slide">
+                    <img src="./images/n2.png" alt="McQueen Feature Show 2">
+                </div>
+                <div class="slide">
+                    <img src="./images/n3.png" alt="McQueen Feature Show 3">
+                </div>
+                <div class="slide">
+                    <img src="./images/n4.png" alt="McQueen Feature Show 4">
+                </div>
+                <div class="slide">
+                    <img src="./images/n5.png" alt="McQueen Feature Show 5">
+                </div>
+                <div class="slide">
+                    <img src="./images/n6.png" alt="McQueen Feature Show 6">
+                </div>
+            </div>
+            <div class="slideshow-arrows">
+                <div class="arrow left-arrow" onclick="plusSlides2(-1)"><i class="fa-solid fa-chevron-left"></i></div>
+                <div class="arrow right-arrow" onclick="plusSlides2(1)"><i class="fa-solid fa-chevron-right"></i></div>
+            </div>
+            <div class="pagination">
+                <span class="active" onclick="currentFeatureSlide(1)"></span>
+                <span onclick="currentFeatureSlide(2)"></span>
+                <span onclick="currentFeatureSlide(3)"></span>
+                <span onclick="currentFeatureSlide(4)"></span>
+                <span onclick="currentFeatureSlide(5)"></span>
+                <span onclick="currentFeatureSlide(6)"></span>
+            </div>
+        </div>
+    </section>
+    
+
+    
+    <!-- Collections Section -->
+    <section class="collections-container">
+        <h2 class="collections-title">Collections</h2>
+        
+        <div class="collection-tabs">
+            <div class="collection-tab active" data-tab="dresses">DRESSES</div>
+            <div class="collection-tab" data-tab="shoes">SHOES</div>
+            <div class="collection-tab" data-tab="accessories">ACCESSORIES</div>
+        </div>
+        
+        <div class="collection-items">
+            <div class="collection-group active" id="dresses-group">
+                <div class="collection-item">
+                    <img src="./images/c1.png" alt="Collection Item 1">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Sarabande</h3>
+                        <p class="collection-year">2007</p>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="./images/c2.png" alt="Collection Item 2">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Oyster Dress</h3>
+                        <p class="collection-year">2003</p>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="./images/c3.png" alt="Collection Item 3">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">The Horn of Plenty</h3>
+                        <p class="collection-year">2009</p>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="./images/c4.png" alt="Collection Item 4">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">The Birds</h3>
+                        <p class="collection-year">1995</p>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="./images/c5.png" alt="Collection Item 5">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Plato's Atlantis</h3>
+                        <p class="collection-year">2010</p>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="./images/c6.png" alt="Collection Item 6">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Voss</h3>
+                        <p class="collection-year">2001</p>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="./images/c7.png" alt="Collection Item 7">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Highland Rape</h3>
+                        <p class="collection-year">1995</p>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="./images/c8.png" alt="Collection Item 8">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">It's Only a Game</h3>
+                        <p class="collection-year">2005</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="collection-group" id="shoes-group">
+                <div class="collection-item">
+                    <img src="./images/d1.png" alt="Collection Item 5">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Armadillo </h3>
+                        <p class="collection-year">2010</p>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="./images/d2.png" alt="Collection Item 6">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">The Batterflyn</h3>
+                        <p class="collection-year">2011</p>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="./images/d3.png" alt="Collection Item 7">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Shipwreck
+                            </h3>
+                        <p class="collection-year">2010</p>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="./images/d4.png" alt="Collection Item 8">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">skull</h3>
+                        <p class="collection-year">1999</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="collection-group" id="accessories-group">
+                <div class="collection-item">
+                    <img src="./images/e1.png" alt="Collection Item 1">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">aluminumjaw
+                           </h3>
+                        <p class="collection-year">1998</p>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="./images/e2.png" alt="Collection Item 2">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name"> Head Armor</h3>
+                        <p class="collection-year">2009</p>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="./images/e3.png" alt="Collection Item 3">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name">Spine Corset
+                           </h3>
+                        <p class="collection-year">2000</p>
+                    </div>
+                </div>
+                
+                <div class="collection-item">
+                    <img src="./images/e4.png" alt="Collection Item 4">
+                    <div class="collection-overlay">
+                        <h3 class="collection-name"> The Widows of Culloden</h3>
+                        <p class="collection-year">2006</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="collections-pagination">
+            <span class="active" onclick="currentDressesSlide(1)"></span>
+            <span onclick="currentDressesSlide(2)"></span>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-logo"><img src="./images/logo.png" alt="MCQUEEN Logo" style="height: 30px;"></div>
+                <div class="footer-right">
+                    <div class="footer-website">
+                        <a href="https://www.alexandermcqueen.com/" target="_blank">WWW.ALEXANDERMCQUEEN.COM/</a>
+                        <a href="mailto:info@alexandermcqueen.com" class="footer-email"><i class="fa-regular fa-envelope"></i></a>
+                    </div>
+                    <div class="footer-address">
+                        ALEXANDER MCQUEEN 28 OLD BOND STREET<br>
+                        LONDON W1S 4BT UNITED KINGDOM
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-credit">
+                    Designed by Tongxu Zhang for Alexander McQueen.
+                </div>
+                <div class="footer-social">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // 第一个轮播图功能 (Profile Section)
+        let slideIndex1 = 1;
+        showSlides1(slideIndex1);
+        
+        // 第一个轮播图自动播放
+        setInterval(function() {
+            plusSlides1(1);
+        }, 5000); // 每5秒切换一次
+        
+        function plusSlides1(n) {
+            showSlides1(slideIndex1 += n);
+        }
+        
+        function currentSlide(n) {
+            showSlides1(slideIndex1 = n);
+        }
+        
+        function showSlides1(n) {
+            let i;
+            let slides = document.querySelector(".profile-container .profile-slideshow").querySelectorAll(".slide");
+            let dots = document.querySelector(".profile-container .pagination").querySelectorAll("span");
+            
+            if (n > slides.length) {slideIndex1 = 1}
+            if (n < 1) {slideIndex1 = slides.length}
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active");
+            }
+            
+            for (i = 0; i < dots.length; i++) {
+                dots[i].classList.remove("active");
+            }
+            
+            slides[slideIndex1-1].classList.add("active");
+            dots[slideIndex1-1].classList.add("active");
+        }
+
+        // 第二个轮播图功能 (Feature Show Section)
+        let slideIndex2 = 1;
+        showSlides2(slideIndex2);
+        
+        // 第二个轮播图自动播放
+        setInterval(function() {
+            plusSlides2(1);
+        }, 6000); // 每6秒切换一次
+        
+        function plusSlides2(n) {
+            showSlides2(slideIndex2 += n);
+        }
+        
+        function currentFeatureSlide(n) {
+            showSlides2(slideIndex2 = n);
+        }
+        
+        function showSlides2(n) {
+            let i;
+            let slides = document.querySelector(".feature-show .profile-slideshow").querySelectorAll(".slide");
+            let dots = document.querySelector(".feature-show .pagination").querySelectorAll("span");
+            
+            if (n > slides.length) {slideIndex2 = 1}
+            if (n < 1) {slideIndex2 = slides.length}
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active");
+            }
+            
+            for (i = 0; i < dots.length; i++) {
+                dots[i].classList.remove("active");
+            }
+            
+            slides[slideIndex2-1].classList.add("active");
+            dots[slideIndex2-1].classList.add("active");
+        }
+        
+        // 第三个轮播图功能 (Collections Section)
+        let collectionSlideIndex = 1;
+        showCollectionSlides(collectionSlideIndex);
+        
+        // 存储轮播图定时器
+        let collectionTimer;
+        
+        // 启动Collections轮播图自动播放
+        function startCollectionTimer() {
+            collectionTimer = setInterval(function() {
+                plusCollectionSlides(1);
+            }, 7000); // 每7秒切换一次
+        }
+        
+        // 初始启动轮播
+        startCollectionTimer();
+        
+        // 添加鼠标移入暂停、移出继续的事件监听
+        const collectionContainer = document.querySelector(".collection-items");
+        collectionContainer.addEventListener("mouseenter", function() {
+            // 清除定时器，暂停轮播
+            clearInterval(collectionTimer);
+        });
+        
+        collectionContainer.addEventListener("mouseleave", function() {
+            // 重新启动轮播
+            startCollectionTimer();
+        });
+        
+        function plusCollectionSlides(n) {
+            showCollectionSlides(collectionSlideIndex += n);
+        }
+        
+        function currentCollectionSlide(n) {
+            showCollectionSlides(collectionSlideIndex = n);
+        }
+        
+        function showCollectionSlides(n) {
+            let i;
+            let activeTab = document.querySelector(".collection-tab.active").getAttribute("data-tab");
+            let slides = document.querySelectorAll("#" + activeTab + "-group .collection-item");
+            let dots = document.querySelector(".collections-pagination").querySelectorAll("span");
+            
+            if (n > Math.ceil(slides.length / 4)) {collectionSlideIndex = 1}
+            if (n < 1) {collectionSlideIndex = Math.ceil(slides.length / 4)}
+            
+            for (i = 0; i < slides.length; i++) {
+                if (i >= (collectionSlideIndex - 1) * 4 && i < collectionSlideIndex * 4) {
+                    slides[i].style.display = "block";
+                } else {
+                    slides[i].style.display = "none";
+                }
+            }
+            
+            // 只在DRESSES模块显示指示器
+            const paginationElement = document.querySelector(".collections-pagination");
+            if (activeTab === "dresses") {
+                paginationElement.style.display = "block";
+                
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].classList.remove("active");
+                }
+                
+                dots[collectionSlideIndex - 1].classList.add("active");
+            } else {
+                paginationElement.style.display = "none";
+            }
+        }
+        
+        // 添加DRESSES轮播图的指示器点击事件
+        function currentDressesSlide(n) {
+            if (document.querySelector(".collection-tab.active").getAttribute("data-tab") === "dresses") {
+                collectionSlideIndex = n;
+                showCollectionSlides(collectionSlideIndex);
+            }
+        }
+        
+        // 添加标签切换功能
+        document.querySelectorAll(".collection-tab").forEach(tab => {
+            tab.addEventListener("click", function() {
+                // 移除所有标签的激活状态
+                document.querySelectorAll(".collection-tab").forEach(t => {
+                    t.classList.remove("active");
+                });
+                
+                // 添加当前标签的激活状态
+                this.classList.add("active");
+                
+                // 隐藏所有轮播图组
+                document.querySelectorAll(".collection-group").forEach(group => {
+                    group.classList.remove("active");
+                });
+                
+                // 显示对应的轮播图组
+                const tabName = this.getAttribute("data-tab");
+                document.getElementById(tabName + "-group").classList.add("active");
+                
+                // 重置轮播索引并显示当前组的第一页
+                collectionSlideIndex = 1;
+                showCollectionSlides(collectionSlideIndex);
+                
+                // 根据当前标签决定是否显示指示器
+                const paginationElement = document.querySelector(".collections-pagination");
+                if (tabName === "dresses") {
+                    paginationElement.style.display = "block";
+                } else {
+                    paginationElement.style.display = "none";
+                }
+                
+                // 重启自动轮播
+                clearInterval(collectionTimer);
+                startCollectionTimer();
+            });
+        });
+        
+        // 切换视频和图片的显示
+        function toggleVideo() {
+            openVideoModal();
+        }
+    </script>
+    
+    <!-- 视频弹窗 -->
+    <div id="videoModal" class="video-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeVideoModal()">&times;</span>
+            <div class="video-container">
+                <iframe id="youtubeVideo" width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 视频弹窗控制
+        function openVideoModal() {
+            document.getElementById("videoModal").style.display = "block";
+            document.getElementById("youtubeVideo").src = "https://www.youtube.com/embed/4OjX3ZbsfbU?autoplay=1";
+        }
+        
+        function closeVideoModal() {
+            document.getElementById("videoModal").style.display = "none";
+            document.getElementById("youtubeVideo").src = "";
+        }
+        
+        // 点击弹窗外部关闭弹窗
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("videoModal")) {
+                closeVideoModal();
+            }
+        }
+    </script>
+</body>
+</html>
